@@ -1,0 +1,78 @@
+.img-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+}
+
+.div-img-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-profile-info {
+  margin-top: 30px;
+  width: 100%;
+}
+
+.div-profile-info-title {
+  margin-bottom: 5px;
+  color: #454545;
+  font-size: 15px;
+}
+
+.div-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+}
+
+.top-profile-title {
+  position: relative;
+}
+
+.div-close-btn {
+  border: 1px solid;
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  font-size: 25px;
+  color: #494949;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: transparent;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.div-close-btn:hover {
+  border-color: white;
+  color: white;
+}
+
+.google-auth-btn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in-btn {
+  height: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.sign-in-btn svg {
+  font-size: 25px;
+}
+
+.logout-btn {
+  display: flex;
+  gap: 10px;
+}

@@ -1,0 +1,22 @@
+.skeleton-loading-img-box {
+  width: 300px;
+  height: 150px !important;
+  background-color: #202020 !important;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 5px;
+}
+
+.div-skeleton-loading-parent {
+  margin: 30px;
+}
+
+.skeleton-text-name {
+  background-color: #202020 !important;
+  width: 50%;
+}
+
+.skeleton-genre-platform {
+  background-color: #202020 !important;
+  width: 80%;
+}

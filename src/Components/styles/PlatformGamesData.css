@@ -1,0 +1,96 @@
+.div-pop-parent {
+  position: fixed;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: #000000c9;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0px;
+  width: 100%;
+  right: 0px;
+}
+
+.div-image-icon {
+  position: absolute;
+  width: 100%;
+  bottom: -10px;
+  padding-left: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.div-screenshot-img {
+  width: 45px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  cursor: pointer;
+  transition: background-color 0.5s;
+  background-color: transparent;
+}
+
+.div-screenshot-img:hover {
+  background-color: #202020;
+}
+
+.div-close-icon {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transition: background-color 0.5s ease-in-out;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.div-close-icon:hover {
+  background-color: #202020;
+}
+
+.div-pop-content {
+  width: 90%;
+  position: relative;
+  height: auto;
+}
+
+.div-pop-close {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.div-motion-screenshot-popup {
+  z-index: 100;
+  position: fixed;
+  top: 0px;
+}
+
+.div-list {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  background-color: transparent;
+  transition: background-color 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.div-list:hover {
+  background-color: #202020;
+}

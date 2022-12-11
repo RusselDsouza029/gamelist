@@ -1,0 +1,117 @@
+.game-list-img-poster {
+  width: 800px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.div-list-img-container {
+  position: relative;
+}
+
+.div-list-game-container {
+  background-color: #202020;
+  border-radius: 10px;
+  /* padding-bottom: 20px; */
+  margin-top: 20px;
+}
+
+.div-list-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.div-game-list-rating {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(transparent, #202020);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  /* z-index: -1; */
+}
+
+.rating-list-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.div-screenshot-and-remove-list {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  /* top: 0px; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 20px;
+  gap: 10px;
+}
+
+.p-list-game-name {
+  font-size: 20px !important;
+}
+
+.div-data-info {
+  padding: 10px;
+}
+
+.list-hr {
+  border-color: #303030 !important;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.div-list-data-info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div-list-no-games-added {
+  color: rgb(117 117 117);
+  height: 90vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-data-skeleton {
+  background-color: #282828 !important;
+  height: 350px !important;
+}
+
+.list-line-skeleton {
+  background-color: #282828 !important;
+  width: 40% !important;
+  height: 30px !important;
+}
+
+.list-genre-platform-data-skeleton {
+  width: 20% !important;
+}
+
+.skeleton-genre-container {
+  margin-top: 10px;
+}
+
+@media (max-width: 800px) {
+  .game-list-img-poster {
+    width: 600px;
+  }
+}
+
+@media (max-width: 650px) {
+  .game-list-img-poster {
+    width: 100%;
+  }
+  .list-data-skeleton {
+    width: 350px !important;
+  }
+}

@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap");
+
+.div-inside-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.footer {
+  margin: 30px;
+  width: auto;
+  height: auto;
+  background-color: #202020;
+  border-radius: 10px;
+}
+
+.game-logo-span {
+  color: rgb(255, 123, 22);
+}
+
+.div-logo-container p {
+  font-size: 30px;
+  font-family: "Fredericka the Great", cursive;
+  width: fit-content;
+  padding: 10px;
+  background: #151515;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.div-social-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  border: 1px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+  color: white;
+  background-color: transparent;
+}
+
+.div-social-icon svg {
+  font-size: 20px;
+  color: white;
+}
+
+.div-social-icon:hover {
+  background-color: rgb(255, 123, 22);
+  color: white;
+  border-color: rgb(255, 123, 22);
+}
+
+.div-socialmedia-links {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.link-a {
+  color: rgb(117 117 117);
+  transition: all 0.5s ease-in-out;
+}
+
+.link-a:hover {
+  color: white;
+}
+
+.p-login-logout {
+  cursor: pointer;
+}
+
+.about-app {
+  color: rgb(117 117 117);
+}
+
+@media (max-width: 500px) {
+  .footer {
+    margin: 20px;
+  }
+}

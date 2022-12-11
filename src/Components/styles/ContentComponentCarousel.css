@@ -1,0 +1,77 @@
+.div-carousel-content {
+  width: 500px;
+  margin: 20px;
+  margin-left: 40px;
+  background-color: #202020;
+  border-radius: 10px;
+}
+
+.div-img-container {
+  width: 100%;
+  position: relative;
+}
+
+.div-img-container img {
+  width: 500px;
+  height: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.div-gradiant-layer-img {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(#ffffff00, #202020);
+}
+
+.div-txt-content {
+  padding: 20px;
+}
+
+.div-name {
+  font-size: 20px;
+}
+
+.div-position-parent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.div-position {
+  background-color: #2c2c2c;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #727272;
+}
+
+.div-games {
+  display: flex;
+  justify-content: space-between;
+  color: #727272;
+  font-size: 15px;
+  gap: 10px;
+}
+
+.span-games-name a {
+  color: #727272;
+  transition: color 0.5s ease-in-out;
+}
+
+.span-games-name a:hover {
+  color: white;
+}
+
+@media (max-width: 500px) {
+  .div-img-container img {
+    width: 300px;
+  }
+  .div-carousel-content {
+    width: 300px;
+  }
+}

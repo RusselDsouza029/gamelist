@@ -1,38 +1,26 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+body {
+  background-color: #151515;
   color: white;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-.App-link {
-  color: #61dafb;
+/* scroll webkit style will be applied to every element overflow which has scroll */
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(34, 33, 33);
+}
+
+.div-loading-progress {
+  height: 90vh;;
+}
+
+@media (max-width: 768px) {
+  .div--page {
+    padding-left: 0px !important;
   }
 }
