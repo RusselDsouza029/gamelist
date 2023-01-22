@@ -394,11 +394,7 @@ const TopNav = () => {
               <Box className="div-menu-user-info">
                 {user ? (
                   <Box className="menu-user-info">
-                    <img
-                      src={user.photoURL}
-                      className="pro-nav-img"
-                      alt=""
-                    />
+                    <img src={user.photoURL} className="pro-nav-img" alt="" />
                     <Typography component="span">{user.displayName}</Typography>
                   </Box>
                 ) : (
@@ -511,13 +507,13 @@ const TopNav = () => {
           </div>
           <div className="div-game-logo">
             <motion.p
-              initial="hide"
-              whileInView="view"
-              transition={{ duration: 1, delay: 1.3 }}
-              variants={{
-                view: { opacity: 1, x: 0 },
-                hide: { opacity: 0, x: -100 },
-              }}
+            // initial="hide"
+            // whileInView="view"
+            // transition={{ duration: 1, delay: 1.3 }}
+            // variants={{
+            //   view: { opacity: 1, x: 0 },
+            //   hide: { opacity: 0, x: -100 },
+            // }}
             >
               <span
                 style={{
@@ -533,7 +529,7 @@ const TopNav = () => {
           <div className="div-parent-link">
             <NavLink to="/">
               <div className="div-change-bg-hover">
-                <motion.div
+                {/* <motion.div
                   initial="hide"
                   whileInView="view"
                   transition={{ duration: 1, delay: 1 }}
@@ -541,22 +537,22 @@ const TopNav = () => {
                     view: { opacity: 1, x: 0 },
                     hide: { opacity: 0, x: -100 },
                   }}
-                >
-                  Home
-                </motion.div>
+                > */}
+                Home
+                {/* </motion.div> */}
               </div>
             </NavLink>
             <motion.div
               onMouseEnter={openPlatformSelect}
               onMouseLeave={openPlatformSelect}
               className="platform-parent-dropdown div-change-bg-hover"
-              initial="hide"
-              whileInView="view"
-              transition={{ duration: 1, delay: 0.9 }}
-              variants={{
-                view: { opacity: 1, x: 0 },
-                hide: { opacity: 0, x: -100 },
-              }}
+              // initial="hide"
+              // whileInView="view"
+              // transition={{ duration: 1, delay: 0.9 }}
+              // variants={{
+              //   view: { opacity: 1, x: 0 },
+              //   hide: { opacity: 0, x: -100 },
+              // }}
             >
               Platform{" "}
               <span>
@@ -726,13 +722,13 @@ const TopNav = () => {
             <NavLink to="/list">
               <div className="div-change-bg-hover">
                 <motion.div
-                  initial="hide"
-                  whileInView="view"
-                  transition={{ duration: 1, delay: 0.7 }}
-                  variants={{
-                    view: { opacity: 1, x: 0 },
-                    hide: { opacity: 0, x: -100 },
-                  }}
+                // initial="hide"
+                // whileInView="view"
+                // transition={{ duration: 1, delay: 0.7 }}
+                // variants={{
+                //   view: { opacity: 1, x: 0 },
+                //   hide: { opacity: 0, x: -100 },
+                // }}
                 >
                   List
                 </motion.div>
@@ -741,13 +737,13 @@ const TopNav = () => {
             {user ? (
               <div className="div-change-bg-hover" onClick={logOut}>
                 <motion.div
-                  initial="hide"
-                  whileInView="view"
-                  transition={{ duration: 1, delay: 0.5 }}
-                  variants={{
-                    view: { opacity: 1, x: 0 },
-                    hide: { opacity: 0, x: -100 },
-                  }}
+                // initial="hide"
+                // whileInView="view"
+                // transition={{ duration: 1, delay: 0.5 }}
+                // variants={{
+                //   view: { opacity: 1, x: 0 },
+                //   hide: { opacity: 0, x: -100 },
+                // }}
                 >
                   Logout
                 </motion.div>
@@ -755,13 +751,13 @@ const TopNav = () => {
             ) : (
               <div className="div-change-bg-hover" onClick={handleGoogleSignIn}>
                 <motion.div
-                  initial="hide"
-                  whileInView="view"
-                  transition={{ duration: 1, delay: 0.5 }}
-                  variants={{
-                    view: { opacity: 1, x: 0 },
-                    hide: { opacity: 0, x: -100 },
-                  }}
+                // initial="hide"
+                // whileInView="view"
+                // transition={{ duration: 1, delay: 0.5 }}
+                // variants={{
+                //   view: { opacity: 1, x: 0 },
+                //   hide: { opacity: 0, x: -100 },
+                // }}
                 >
                   Signin
                 </motion.div>
@@ -771,13 +767,13 @@ const TopNav = () => {
         </div>
         <div className="div-right-content">
           <motion.div
-            initial="hide"
-            whileInView="view"
-            transition={{ duration: 1 }}
-            variants={{
-              view: { opacity: 1, x: 0 },
-              hide: { opacity: 0, x: 100 },
-            }}
+            // initial="hide"
+            // whileInView="view"
+            // transition={{ duration: 1 }}
+            // variants={{
+            //   view: { opacity: 1, x: 0 },
+            //   hide: { opacity: 0, x: 100 },
+            // }}
             className="div-search-content"
             onClick={handleOpenSearch}
           >
@@ -794,13 +790,13 @@ const TopNav = () => {
           </motion.div>
           <motion.div
             className="pro-div-img"
-            initial="hide"
-            whileInView="view"
-            transition={{ duration: 1, delay: 0.5 }}
-            variants={{
-              view: { opacity: 1 },
-              hide: { opacity: 0 },
-            }}
+            // initial="hide"
+            // whileInView="view"
+            // transition={{ duration: 1, delay: 0.5 }}
+            // variants={{
+            //   view: { opacity: 1 },
+            //   hide: { opacity: 0 },
+            // }}
             onClick={profileShow}
           >
             {user ? (
