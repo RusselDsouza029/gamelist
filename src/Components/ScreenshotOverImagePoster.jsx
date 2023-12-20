@@ -13,34 +13,29 @@ const ScreenshotOverImagePoster = ({ data }) => {
 
   const [imageSrc, setImageSrc] = useState([]);
 
-  const getScreenshots = () => {
-    axios
-      .get(`https://api.rawg.io/api/games/${data}/screenshots?key=${apiKey}`)
-      .then((res) => {
-        setImageSrc(res.data.results.map((data) => data.image));
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+  const getScreenshots = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.rawg.io/api/games/${data}/screenshots?key=${apiKey}`
+      );
+      setImageSrc(response.data.results.map((data) => data.image));
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
   useEffect(() => {
     getScreenshots();
-  });
+  }, [data, apiKey]);
 
   const variants = {
-    enter: (direction) => {
-      return { x: direction > 0 ? 1000 : -1000, opacity: 0 };
-    },
+    enter: (direction) => ({ x: direction > 0 ? 1000 : -1000, opacity: 0 }),
     center: { zIndex: 1, x: 0, opacity: 1 },
-    exit: (direction) => {
-      return { zIndex: 0, x: direction < 0 ? 1000 : -1000, opacity: 0 };
-    },
+    exit: (direction) => ({ zIndex: 0, x: direction < 0 ? 1000 : -1000, opacity: 0 }),
   };
+
   const swipeConfidenceThreshold = 10000;
-  const swipePower = (offset, velocity) => {
-    return Math.abs(offset) * velocity;
-  };
+  const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
 
   const [[page, direction], setPage] = useState([0, 0]);
 
@@ -54,11 +49,7 @@ const ScreenshotOverImagePoster = ({ data }) => {
 
   return (
     <>
-      <AnimatePresence
-        exitBeforeEnter={true}
-        initial={false}
-        custom={direction}
-      >
+      <AnimatePresence exitBeforeEnter={true} initial={false} custom={direction}>
         <motion.img
           onMouseDown={() => setChangeMouseCursor("grabbing")}
           onMouseUp={() => setChangeMouseCursor("grab")}
@@ -89,14 +80,12 @@ const ScreenshotOverImagePoster = ({ data }) => {
           }}
         />
       </AnimatePresence>
-      <div className="next-img-slider-btn">
-        <div onClick={() => paginate(1)}>
-          <ArrowRightIcon />
-        </div>
+      <div className="next-img-slider-btn" onClick={() => paginate(1)}>
+        <ArrowRightIcon />
       </div>
       <div className="prev-img-slider-btn" onClick={() => paginate(-1)}>
         <div>
-          <ArrowLeftIcon style={{ fontSide: "30px" }} />
+          <ArrowLeftIcon style={{ fontSize: "30px" }} />
         </div>
       </div>
     </>

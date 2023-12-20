@@ -8,8 +8,36 @@ import { Link } from "react-router-dom";
 import { AuthUseContext } from "./context/AuthContext";
 import { motion } from "framer-motion";
 
+// Reusable SocialIcon component
+const SocialIcon = ({ href, icon }) => (
+  <a href={href} rel="noreferrer" target="_blank">
+    <Box className="div-social-icon">{icon}</Box>
+  </a>
+);
+
 const Footer = () => {
   const { user, handleGoogleSignIn, logOut } = AuthUseContext();
+
+  const socialLinks = [
+    { href: "https://github.com/RusselDsouza029", icon: <FiGithub /> },
+    { href: "https://www.linkedin.com/in/russel-dsouza-7aa065231/", icon: <AiOutlineLinkedin /> },
+    { href: "mailto:russeldsouza456@gmail.com", icon: <AiOutlineMail /> },
+    { href: "https://wa.me/919284113175", icon: <BsWhatsapp /> },
+  ];
+
+  const appLinks = [
+    { to: "/", label: "Home" },
+    { to: "/platform/4", label: "Platform" },
+    { to: "/list", label: "List" },
+  ];
+
+  const projectLinks = [
+    { href: "https://russel-portfolio.web.app/", label: "Portfolio" },
+    { href: "https://movie-data-info-647a7.web.app/", label: "Movie Data Info" },
+    { href: "https://russeldsouza029.github.io/India-Covid-19-Dashboard-React/", label: "Indian Covid-19 Dashboard" },
+    { href: "https://russeldsouza029.github.io/Stopwatch/", label: "Stopwatch" },
+  ];
+
   return (
     <motion.footer
       className="footer"
@@ -32,59 +60,22 @@ const Footer = () => {
               </p>
             </Box>
             <Box className="div-socialmedia-links">
-              <a
-                href="https://github.com/RusselDsouza029"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <Box className="div-social-icon">
-                  <FiGithub />
-                </Box>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/russel-dsouza-7aa065231/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <Box className="div-social-icon">
-                  <AiOutlineLinkedin />
-                </Box>
-              </a>
-              <a href="mailto:russeldsouza456@gmail.com" rel="noreferrer">
-                <Box className="div-social-icon">
-                  <AiOutlineMail />
-                </Box>
-              </a>
-              <a
-                href="https://wa.me/919284113175"
-                rel="noreferrer"
-                target="_blank"
-              >
-                <Box className="div-social-icon">
-                  <BsWhatsapp />
-                </Box>
-              </a>
+              {socialLinks.map((link, index) => (
+                <SocialIcon key={index} {...link} />
+              ))}
             </Box>
           </Grid>
           <Grid lg={3} md={3} sm={6} xs={12} item>
             <p>
               <b>Links</b>
             </p>
-            <p>
-              <Link className="link-a" to="/">
-                Home
-              </Link>
-            </p>
-            <p>
-              <Link className="link-a" to="/platform/4">
-                Platform
-              </Link>
-            </p>
-            <p>
-              <Link className="link-a" to="/list">
-                List
-              </Link>
-            </p>
+            {appLinks.map((link, index) => (
+              <p key={index}>
+                <Link className="link-a" to={link.to}>
+                  {link.label}
+                </Link>
+              </p>
+            ))}
             <p className="link-a p-login-logout">
               {user ? (
                 <span onClick={logOut}>Logout</span>
@@ -95,46 +86,13 @@ const Footer = () => {
           </Grid>
           <Grid lg={3} md={3} sm={6} xs={12} item>
             <p>Projects</p>
-            <p>
-              <a
-                className="link-a"
-                href="https://russel-portfolio.web.app/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Portfolio
-              </a>
-            </p>
-            <p>
-              <a
-                className="link-a"
-                href="https://movie-data-info-647a7.web.app/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Movie Data Info
-              </a>
-            </p>
-            <p>
-              <a
-                className="link-a"
-                href="https://russeldsouza029.github.io/India-Covid-19-Dashboard-React/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Indian Covid-19 Dashboard
-              </a>
-            </p>
-            <p>
-              <a
-                className="link-a"
-                href="https://russeldsouza029.github.io/Stopwatch/"
-                rel="noreferrer"
-                target="_blank"
-              >
-                Stopwatch
-              </a>
-            </p>
+            {projectLinks.map((link, index) => (
+              <p key={index}>
+                <a className="link-a" href={link.href} rel="noreferrer" target="_blank">
+                  {link.label}
+                </a>
+              </p>
+            ))}
           </Grid>
           <Grid lg={3} md={3} sm={6} xs={12} item>
             <p>
@@ -142,8 +100,8 @@ const Footer = () => {
             </p>
             <p className="about-app">
               This application is made with the help of JavaScript, React JS,
-              Material UI, Framer Motion, and Firebase. To display games I used
-              RAWG API.
+              Material UI, Framer Motion, and Firebase. To display games, I used
+              the RAWG API.
             </p>
           </Grid>
         </Grid>

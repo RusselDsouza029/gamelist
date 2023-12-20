@@ -92,7 +92,7 @@ const TopNav = () => {
       },
     },
   };
-
+  
   const dropdownLinkAnimation = {
     enter: {
       opacity: 1,
@@ -112,7 +112,7 @@ const TopNav = () => {
       },
     },
   };
-
+  
   const subDropdownAnimation = {
     enter: {
       top: "30px",
@@ -126,6 +126,8 @@ const TopNav = () => {
         delay: 0.3,
       },
       display: "block",
+      opacity: 1,
+      visibility: "visible",
     },
     exit: {
       top: "20px",
@@ -134,11 +136,13 @@ const TopNav = () => {
         duration: 0.5,
         delay: 0.3,
       },
+      opacity: 0,
       transitionEnd: {
         display: "none",
       },
     },
   };
+  
 
   const [openPlatformDropdown, setOpenPlatformDropdown] = useState(false);
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Dialog, DialogContent, Box, Button, Grid } from "@mui/material";
+import { Dialog, DialogContent, Box, Button, Grid, Avatar } from "@mui/material";
 import { paperClasses } from "@mui/material";
 import { AuthUseContext } from "./context/AuthContext";
 import "./styles/Profile.css";
@@ -10,108 +10,82 @@ const Profile = ({ open, close, fullScreen }) => {
   const { user, handleGoogleSignIn, logOut } = AuthUseContext();
 
   return (
-    <>
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        aria-labelledby="responsive-dialog-title"
-        onClose={close}
-        sx={{
-          [`& .${paperClasses.root}`]: {
-            color: "white",
-            backgroundColor: "#151515",
-            width: "100%",
-            height: "100%",
-          },
-        }}
-      >
-        <DialogContent>
-          <Box className="top-profile-title">
-            Profile
-            <Box className="div-close-btn" onClick={close}>
-              <AiOutlineClose />
-            </Box>
+    <Dialog
+      fullScreen={fullScreen}
+      open={open}
+      aria-labelledby="responsive-dialog-title"
+      onClose={close}
+      sx={{
+        [`& .${paperClasses.root}`]: {
+          color: "white",
+          backgroundColor: "#202020", // Updated background color
+          borderRadius: "10px",
+        },
+      }}
+    >
+      <DialogContent>
+        <Box className="top-profile-title">
+          <h2 style={{ margin: 0 }}>User Profile</h2>
+          <Box className="div-close-btn" onClick={close}>
+            <AiOutlineClose />
           </Box>
-          <Box sx={{ mt: "20px" }}>
-            {user ? (
-              <Box className="div-pro-info">
-                <Box className="div-img-profile">
-                  <img className="img-container" alt="" src={user.photoURL} />
-                </Box>
-                <Grid container>
-                  <Grid lg={6} md={6} sm={12} xs={12} item>
-                    <Box className="div-profile-info">
-                      <Box>
-                        <Box className="div-profile-info-title">Name</Box>
-                        <Box className="div-user-info">
-                          {/* <AiOutlineUser /> */}
-                          {user.displayName}
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Grid>
-                  <Grid lg={6} md={6} sm={12} xs={12} item>
-                    <Box className="div-profile-info">
-                      <Box>
-                        <Box className="div-profile-info-title">Email</Box>
-                        <Box className="div-user-info">
-                          {user.email}
-                        </Box>
-                      </Box>
-                    </Box>
-                  </Grid>
-                  {user.metadata ? (
-                    <Grid lg={6} md={6} sm={12} xs={12} item>
-                      <Box className="div-profile-info">
-                        <Box>
-                          <Box className="div-profile-info-title">
-                            Account createed on Game List
-                          </Box>
-                          <Box className="div-user-info">
-                            {user.metadata.creationTime}
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Grid>
-                  ) : null}
-                </Grid>
-                <Box
-                  className="google-auth-btn"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button
-                    onClick={logOut}
-                    sx={{
-                      color: "white",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
-                    className="logout-btn"
-                  >
-                    <LogoutIcon />
-                    Logout
-                  </Button>
-                </Box>
+        </Box>
+        <Box sx={{ mt: "20px" }}>
+          {user ? (
+            <Box className="div-pro-info">
+              <Box className="div-img-profile">
+                <Avatar alt="User Avatar" src={user.photoURL} sx={{ width: 100, height: 100 }} />
               </Box>
-            ) : (
-              <Box className="google-auth-btn">
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Box className="div-profile-info">
+                    <Box className="div-profile-info-title">Name</Box>
+                    <Box className="div-user-info">{user.displayName}</Box>
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Box className="div-profile-info">
+                    <Box className="div-profile-info-title">Email</Box>
+                    <Box className="div-user-info">{user.email}</Box>
+                  </Box>
+                </Grid>
+                {user.metadata ? (
+                  <Grid item xs={12} md={6}>
+                    <Box className="div-profile-info">
+                      <Box className="div-profile-info-title">Account Created</Box>
+                      <Box className="div-user-info">
+                        {new Date(user.metadata.creationTime).toLocaleDateString()}
+                      </Box>
+                    </Box>
+                  </Grid>
+                ) : null}
+              </Grid>
+              <Box className="google-auth-btn" sx={{ display: "flex", justifyContent: "center" }}>
                 <Button
-                  sx={{ color: "white" }}
-                  className="sign-in-btn"
-                  onClick={handleGoogleSignIn}
+                  onClick={logOut}
+                  sx={{ color: "white", backgroundColor: "#1a1a1a", mt: 2 }} // Updated button styling
+                  className="logout-btn"
+                  startIcon={<LogoutIcon />} // Added Logout icon
                 >
-                  <AiOutlineGoogle />
-                  Sign In With Google
+                  Logout
                 </Button>
               </Box>
-            )}
-          </Box>
-        </DialogContent>
-      </Dialog>
-    </>
+            </Box>
+          ) : (
+            <Box className="google-auth-btn">
+              <Button
+                sx={{ color: "white", backgroundColor: "#1a1a1a", mt: 2 }} // Updated button styling
+                className="sign-in-btn"
+                onClick={handleGoogleSignIn}
+                startIcon={<AiOutlineGoogle />} // Added Google icon
+              >
+                Sign In With Google
+              </Button>
+            </Box>
+          )}
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
 };
 

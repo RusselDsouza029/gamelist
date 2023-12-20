@@ -1,12 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Snackbar } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import "./styles/Home.css";
 import GameData from "./GameData";
 import { AuthUseContext } from "./context/AuthContext";
-import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
 const Home = React.memo(function Home() {
@@ -18,10 +17,29 @@ const Home = React.memo(function Home() {
     changeWidth,
   } = AuthUseContext();
 
-  // storing game data for Home Component
   const [homeGameData, setHomeGameData] = useState([]);
-
   const [openErrorSnackbar, setOpenErrorSnackBar] = useState(false);
+  const [loadingCircle, setLoadingCircle] = useState(true);
+
+  useEffect(() => {
+    const fetchAllGameData = () => {
+      axios
+        .get(`${API_URL}&dates=2022-01-01,2022-12-30`)
+        .then((res) => {
+          setHomeGameData(res.data.results);
+          setLoadingCircle(false);
+        })
+        .catch((err) => {
+          setLoadingCircle(false);
+          console.error(err);
+          setOpenErrorSnackBar(true);
+        });
+    };
+
+    fetchAllGameData();
+    document.title = "Game List - Home";
+    // eslint-disable-next-line
+  }, [API_URL]);
 
   const handleCloseSnackbar = () => {
     setOpenErrorSnackBar(false);
@@ -30,29 +48,6 @@ const Home = React.memo(function Home() {
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
-
-  const [loadingCircle, setLoadingCircle] = useState(true);
-
-  // fetching data and sending it through context api to Home component
-  const fetchAllGameData = () => {
-    axios
-      .get(`${API_URL}&dates=2022-01-01,2022-12-30`)
-      .then((res) => {
-        setHomeGameData(res.data.results);
-        setLoadingCircle(false);
-      })
-      .catch((err) => {
-        setLoadingCircle(false);
-        console.log(err);
-        setOpenErrorSnackBar(true);
-      });
-  };
-
-  useEffect(() => {
-    fetchAllGameData();
-    document.title = "Game List - Home";
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <>
@@ -66,23 +61,20 @@ const Home = React.memo(function Home() {
           severity="error"
           sx={{ width: "100%" }}
         >
-          An error ocurred please chack your internet and refresh the page.
+          An error occurred. Please check your internet connection and refresh the page.
         </Alert>
       </Snackbar>
       <div>
         {loadingCircle ? (
-          <>
-            {/* <SkeletonLoading /> */}
-            <div className="div-progress-bar">
-              <div className="div-loading-progress">
-                <CircularProgress
-                  sx={{
-                    color: "white",
-                  }}
-                />
-              </div>
+          <div className="div-progress-bar">
+            <div className="div-loading-progress">
+              <CircularProgress
+                sx={{
+                  color: "white",
+                }}
+              />
             </div>
-          </>
+          </div>
         ) : (
           <>
             <div className="div-parent-grid-title">
