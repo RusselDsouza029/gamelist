@@ -24,5 +24,5 @@ The GameList application allows users to browse game information and add games t
 - RAWG API
 - Framer Motion
 
-Feel free to explore the [GameList application]([link-to-your-application](https://gamelist-b66b2.web.app/)) to discover and manage your favorite games!
+Feel free to explore the [GameList application]([https://gamelist-b66b2.web.app/]) to discover and manage your favorite games!
 
