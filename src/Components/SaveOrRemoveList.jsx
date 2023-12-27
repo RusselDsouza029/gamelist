@@ -19,35 +19,43 @@ const SaveOrRemoveList = ({ gameId }) => {
 
   const strGameId = String(gameId);
 
-  const [checkIdAvailableOrNot, setCheckIdAvailableOrNot] = useState(false);
-
   const checkUID = user ? user.uid : "0"; // Default to "0" if user is not available
 
-  const gameUserIdCollection = collection(db, checkUID);
+  const gameUserIdCollection =
+    checkUID !== "0" ? collection(db, checkUID) : null;
 
-  const q = query(gameUserIdCollection, where("gameId", "==", strGameId));
+  const q = gameUserIdCollection
+    ? query(gameUserIdCollection, where("gameId", "==", strGameId))
+    : null;
 
   const [storeGameId, setStoreGameId] = useState({});
+  const [checkIdAvailableOrNot, setCheckIdAvailableOrNot] = useState(false);
 
   // Function to add the game ID into Firebase
   const setGameIdIntoFirebase = async () => {
-    await addDoc(gameUserIdCollection, { gameId: strGameId });
+    if (gameUserIdCollection) {
+      await addDoc(gameUserIdCollection, { gameId: strGameId });
+    }
   };
 
   // Function to check if the game ID is available in Firebase
   const checkGameAvailableId = () => {
-    onSnapshot(q, (snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        setStoreGameId({ ...doc.data(), id: doc.id });
-        setCheckIdAvailableOrNot(true);
+    if (q) {
+      onSnapshot(q, (snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          setStoreGameId({ ...doc.data(), id: doc.id });
+          setCheckIdAvailableOrNot(true);
+        });
       });
-    });
+    }
   };
 
   // Function to delete the game ID from Firebase
   const deleteGameInfoFirebase = async () => {
-    await deleteDoc(doc(db, checkUID, storeGameId.id));
-    setCheckIdAvailableOrNot(false);
+    if (gameUserIdCollection && storeGameId.id !== undefined) {
+      await deleteDoc(doc(db, checkUID, storeGameId.id));
+      setCheckIdAvailableOrNot(false);
+    }
   };
 
   useEffect(() => {
