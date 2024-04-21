@@ -151,8 +151,9 @@ const TopNav = () => {
   };
 
   // playstation sub dropdown
-  const [openPlaystationSubDropdown, setOpenPlaystationSubDropdown] =
-    useState(false);
+  const [openPlaystationSubDropdown, setOpenPlaystationSubDropdown] = useState(
+    false
+  );
 
   const openPlaystationSubPlatformSelect = () => {
     if (!openPlaystationSubDropdown) {
@@ -780,7 +781,7 @@ const TopNav = () => {
             <input
               type="text"
               placeholder="Search..."
-              disabled
+              // disabled
               className="input-disabled-search"
             />
             <div className="div-search-icon">

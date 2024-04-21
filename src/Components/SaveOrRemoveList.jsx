@@ -25,7 +25,7 @@ const SaveOrRemoveList = ({ gameId }) => {
 
   const checkUID = user ? user.uid : "0"; // Default to "0" if user is not available
 
-  const gameUserIdCollection = collection(db, checkUID);
+  const gameUserIdCollection = user ? collection(db, user.uid) : null;
 
   const q = query(gameUserIdCollection, where("gameId", "==", strGameId));
 
@@ -39,11 +39,11 @@ const SaveOrRemoveList = ({ gameId }) => {
   const [checkIdAvailableOrNot, setCheckIdAvailableOrNot] = useState(false);
 
   // Function to check if the game ID is available in Firebase
-  const checkGameAvailableId = () => {
-    onSnapshot(q, (snapshot) => {
+  const checkGameAvailableId = async () => {
+    await onSnapshot(q, (snapshot) => {
       snapshot.docs.forEach((doc) => {
         setStoreGameId({ ...doc.data(), id: doc.id });
-        // setCheckIdAvailableOrNot(true);
+        setCheckIdAvailableOrNot(true);
       });
     });
   };
@@ -51,7 +51,7 @@ const SaveOrRemoveList = ({ gameId }) => {
   // Function to delete the game ID from Firebase
   const deleteGameInfoFirebase = async () => {
     await deleteDoc(doc(db, checkUID, storeGameId.id));
-    // setCheckIdAvailableOrNot(false);
+    setCheckIdAvailableOrNot(false);
   };
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const SaveOrRemoveList = ({ gameId }) => {
 
   return (
     <>
-      {/* {checkIdAvailableOrNot ? (
+      {checkIdAvailableOrNot ? (
         <Tooltip title="Remove From List" arrow placeholder="bottom">
           <IconButton sx={{ color: "white" }} onClick={deleteGameInfoFirebase}>
             <PlaylistRemoveIcon />
@@ -73,7 +73,7 @@ const SaveOrRemoveList = ({ gameId }) => {
             <PlaylistAddIcon />
           </IconButton>
         </Tooltip>
-      )} */}
+      )}
     </>
   );
 };

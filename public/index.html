@@ -1,69 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Save your favorite games in your Game List to easily track and access them later."
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Game List - Save and Organize Your Favorite Games</title>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="favicon.ico" type="image/icon type">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description"
-    content="Save games in your Game List which you want to play in future or you love to play those games" />
-  <meta name="keywords" content=" HTML, CSS, JavaScript, React JS, Material UI, Firebase, Game List" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <title>Game List</title>
-</head>
+  <body>
+    <style>
+      .loading {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: #151515;
+        z-index: 9999;
+        font-family: "Fredericka the Great", cursive;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-<body>
-  <style>
-    .loading {
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: 100%;
-      background-color: #151515;
-      z-index: 9999;
-      font-family: 'Fredericka the Great', cursive;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+      .loading .logo-text {
+        font-size: 30px;
+      }
 
-    .loading .logo-text {
-      font-size: 30px;
-    }
+      .span-game-logo {
+        color: #ff7b16;
+      }
 
-    .span-game-logo {
-      color: #ff7b16;
-    }
+      .span-list-logo {
+        color: white;
+      }
 
-    .span-list-logo {
-      color: white;
-    }
-
-    .div-p-text {
-      background-color: #202020ed;
-      padding: 10px 7px;
-      border-radius: 5px;
-      user-select: none;
-    }
-  </style>
-  <div id="root">
-    <div class="loading">
-      <div class="div-p-text">
-        <span class="logo-text">
-          <span class="span-game-logo">Game</span>
-          <span class="span-list-logo">
-            List
+      .div-p-text {
+        background-color: #202020ed;
+        padding: 10px 7px;
+        border-radius: 5px;
+        user-select: none;
+      }
+    </style>
+    <div id="root">
+      <div class="loading">
+        <div class="div-p-text">
+          <span class="logo-text">
+            <span class="span-game-logo">Game</span>
+            <span class="span-list-logo">List</span>
           </span>
-        </span>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

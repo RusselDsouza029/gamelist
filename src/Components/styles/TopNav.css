@@ -14,7 +14,6 @@
   justify-content: space-between;
   align-items: center;
 }
-/* #202020 */
 
 .div-game-logo {
   height: 45px;
@@ -90,6 +89,13 @@
   border-radius: 5px;
   width: 170px;
   cursor: pointer;
+  border-color: rgb(117 117 117);
+}
+
+
+.input-disabled-search:focus,
+.input-disabled-search:active {
+  border-color: rgb(117 117 117);
 }
 
 .pro-div-img {
@@ -297,6 +303,7 @@ a {
   border-top-right-radius: 10px;
   position: relative;
 }
+
 .div-search-game-poster {
   position: relative;
 }
@@ -389,18 +396,23 @@ a {
   .div-menu {
     display: flex;
   }
+
   .div-parent-link {
     display: none;
   }
+
   .div-press-key-search {
     display: none;
   }
+
   .input-disabled-search {
     width: 100px;
   }
+
   .div-game-logo {
     width: auto;
   }
+
   .div-no-game {
     width: 100%;
   }
@@ -410,9 +422,11 @@ a {
   .input-disabled-search {
     width: 80px;
   }
+
   .div-search-box {
     width: 70%;
   }
+
   .div-no-game {
     width: 70%;
   }
