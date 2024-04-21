@@ -40,25 +40,25 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const GamePage = () => {
-  // Context and parameters
   const { user, handleGoogleSignIn, apiKey } = AuthUseContext();
+
   const { id } = useParams();
+
   const checkUID = user ? user.uid : 0;
 
-  // Firestore collection
   let objData = {
     gameId: id,
   };
   const gameListCollection = collection(db, `${user ? user.uid : 0}`);
 
-  // Function to send game ID to Firestore
+  // send game id to firestore
   async function sendDataTOFirestore() {
     await addDoc(gameListCollection, objData);
     setTextInsideSnackbar("Added in your List");
     setOpenSuccessSnackBar(true);
   }
 
-  // Function to delete game ID from Firestore
+  // delete game id from firestore
   async function deleteGameData(id) {
     const userDoc = doc(db, user.uid, id);
     await deleteDoc(userDoc);
@@ -68,13 +68,21 @@ const GamePage = () => {
     setCheckId(false);
   }
 
-  // States for API data and various categories
+  // state for getting api data
   const [gameData, setGameData] = useState([]);
+
+  // state for getting genre from api
   const [gameGenre, setGameGenre] = useState([]);
+
+  // state for getting platform from api
   const [gamePlatform, setGamePlatform] = useState([]);
+
+  // state for getting publishers from api
   const [gamePublishers, setGamePublishers] = useState([]);
 
-  // Fetch game data from API
+  // img: gameData.background_image,
+  // name: gameData.name,
+
   function getGameData() {
     axios
       .get(`https://api.rawg.io/api/games/${id}?key=${apiKey}`)
@@ -92,25 +100,26 @@ const GamePage = () => {
       });
   }
 
-  // State and function for checking game availability in user's list
   const [checkId, setCheckId] = useState();
+
   const [loading, setLoading] = useState(true);
+
   const [openSuccessSnackBar, setOpenSuccessSnackBar] = useState(false);
+
   const [textInsideSnackbar, setTextInsideSnackbar] = useState("");
+
   const q = query(
     collection(db, `${checkUID}`),
     where("gameId", "==", id)
+    // limit(1)
   );
 
-  // Function to close success snackbar
   const handleCloseSuccessSnackbar = () => {
     setOpenSuccessSnackBar(false);
   };
 
-  // State for storing the ID to be deleted
   const [deleteFromListId, setDeleteFromListId] = useState("");
 
-  // Function to check if the game is available in the user's list
   function checkGameAvailable() {
     onSnapshot(q, (snapshot) => {
       let storeGameData = [];
@@ -124,13 +133,9 @@ const GamePage = () => {
     });
   }
 
-  // State for storing similar game series
   const [similerGameSeries, setSimilerGameSeries] = useState([]);
 
-  // Variable for pagination
   let nextPage = 1;
-
-  // Function to get similar game series
   function getSimilerGameSeries() {
     axios
       .get(
@@ -145,20 +150,17 @@ const GamePage = () => {
       });
   }
 
-  // useEffect for fetching similar game series
   useEffect(() => {
     getSimilerGameSeries();
     // eslint-disable-next-line
   }, [id, nextPage]);
 
-  // useEffect for initial game data fetch
   useEffect(() => {
     checkGameAvailable();
     getGameData();
     // eslint-disable-next-line
   }, [id]);
 
-  // useEffect to check game availability when user changes
   useEffect(() => {
     if (user) {
       checkGameAvailable();
@@ -166,35 +168,36 @@ const GamePage = () => {
     // eslint-disable-next-line
   }, [checkUID, id]);
 
-  // Alert component for success snackbar
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 
-  // State and functions for specification dialog
   const [openSpecificationPopup, setOpenSpecificationPopup] = useState(false);
-  const [platformSpecificationName, setPlatformSpecificationName] = useState("");
+
+  const [platformSpecificationName, setPlatformSpecificationName] =
+    useState("");
+
   const [platformSpecificationValueData, setPlatformSpecificationValueData] =
     useState({});
+
   const handleOpenSpecificationPop = ({ platformName, specificationData }) => {
     setOpenSpecificationPopup(true);
     setPlatformSpecificationName(platformName);
     setPlatformSpecificationValueData(specificationData);
   };
+
   const handleCloseSpecificationPop = () => {
     setOpenSpecificationPopup(false);
   };
 
-  // Media query and theme for specification dialog
   const mediaTheme = useTheme();
+
   const fullScreenSpecificationMedia = useMediaQuery(
     mediaTheme.breakpoints.down("md")
   );
 
-  // State for specification tab value
   const [specificationTabValue, setSpecificationTabValue] = useState(0);
 
-  // Function to handle tab value change
   const handleChangeTabValues = ({ val }) => {
     setSpecificationTabValue(val);
   };

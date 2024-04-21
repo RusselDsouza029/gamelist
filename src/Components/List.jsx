@@ -9,44 +9,49 @@ import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
 const List = () => {
   const { user } = AuthUseContext();
+
   const [fireData, setFireData] = useState([]);
 
   async function getData() {
-    if (user) {
-      const gameListCollection = collection(db, user.uid);
-      const data = await getDocs(gameListCollection);
-      setFireData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    }
+    setFireData([]);
+    const gameListCollection = collection(db, `${user ? user.uid : 0}`);
+    const data = await getDocs(gameListCollection);
+    setFireData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   }
 
   useEffect(() => {
     getData();
     // eslint-disable-next-line
-  }, [user?.uid]);
-
+  }, [user ? user.uid : null]);
   return (
     <Box>
       {user ? (
         <>
-          {fireData.length > 0 ? (
-            fireData.map((data) => (
-              <Box key={data.id} className="div-list-container">
-                <ListBoxContainer gameId={data.gameId} id={data.id} getData={getData} />
-              </Box>
-            ))
+          {fireData[0] ? (
+            <>
+              {fireData.map((data, index) => (
+                <Box key={index} className="div-list-container">
+                  <ListBoxContainer
+                    gameId={data.gameId}
+                    id={data.id}
+                    getData={getData}
+                  />
+                </Box>
+              ))}
+            </>
           ) : (
             <Box className="div-list-no-games-added">
               <Box>
                 No games added in list
                 <br />
-                To add games in the list click on <PlaylistAddIcon /> icon
+                To add games in list click on <PlaylistAddIcon /> icon
               </Box>
             </Box>
           )}
         </>
       ) : (
         <Box className="div-list-no-games-added">
-          <Box>Sign in with Google to view the list or add games to the list</Box>
+          <Box>Signin with Google to view list or to add games in list</Box>
         </Box>
       )}
     </Box>

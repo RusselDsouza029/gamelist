@@ -1,10 +1,4 @@
-import {
-  Box,
-  Divider,
-  IconButton,
-  Skeleton,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, IconButton, Skeleton, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { AuthUseContext } from "./context/AuthContext";
@@ -19,15 +13,11 @@ import StarIcon from "@mui/icons-material/Star";
 import { Link } from "react-router-dom";
 
 const ListBoxContainer = ({ gameId, id, getData }) => {
-  // Accessing authentication context
   const { apiKey, user } = AuthUseContext();
 
-  // State to store game data, genres, and platforms
   const [gameDataInfo, setGameDataInfo] = useState([]);
   const [gameDataInfoGenre, setGameDataInfoGenre] = useState([]);
   const [gameDataInfoPlatforms, setGameDataInfoPlatforms] = useState([]);
-
-  // Function to fetch game data
   const getGameData = () => {
     axios
       .get(`https://api.rawg.io/api/games/${gameId}?key=${apiKey}`)
@@ -41,23 +31,20 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
       });
   };
 
-  // Function to delete game info from Firebase
   const deleteGameInfoFirebase = async (id) => {
-    await deleteDoc(doc(db, user ? user.uid : "0", id));
+    await deleteDoc(doc(db, user ? user.uid : 0, id));
     getData();
     getGameData();
   };
 
-  // Variables to count the number of displayed genres and platforms
   let countPlatforms = 0;
+
   let countGenre = 0;
 
-  // useEffect to fetch game data on component mount
   useEffect(() => {
     getGameData();
     // eslint-disable-next-line
   }, []);
-
   return (
     <motion.div className="div-list-data-container">
       {gameDataInfo.background_image ? (
@@ -71,7 +58,6 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
             hidden: { opacity: 0, y: 50 },
           }}
         >
-          {/* Display game information */}
           <Box className="div-list-game-container">
             <Box className="div-list-img-container">
               <img
@@ -80,7 +66,6 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
                 className="game-list-img-poster"
               />
               <Box className="div-game-list-rating">
-                {/* Popup for screenshots */}
                 <Box className="div-screenshot-and-remove-list">
                   <Box>
                     <PopupScreenshotComponent
@@ -88,7 +73,6 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
                       id={gameId}
                     />
                   </Box>
-                  {/* Delete game button */}
                   <Box>
                     <IconButton
                       onClick={() => {
@@ -100,7 +84,6 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
                     </IconButton>
                   </Box>
                 </Box>
-                {/* Display game rating */}
                 <Box className="rating-list-data">
                   <StarIcon />
                   {gameDataInfo.rating}
@@ -108,14 +91,11 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
               </Box>
             </Box>
             <Box className="div-data-info">
-              {/* Link to the game details page */}
               <Link to={`/game/${gameDataInfo.id}`}>
-                {/* Display game name */}
                 <Typography component="p" className="p-list-game-name">
                   {gameDataInfo.name}
                 </Typography>
                 <Box>
-                  {/* Divider and release date */}
                   <Divider className="list-hr" />
                   <Box className="div-list-data-info-container">
                     Release Date
@@ -124,7 +104,6 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
                     </Typography>
                   </Box>
                 </Box>
-                {/* Divider and genres */}
                 <Divider className="list-hr" />
                 <Box className="div-list-data-info-container">
                   <Box>Genre</Box>
@@ -146,7 +125,6 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
                     )}
                   </Box>
                 </Box>
-                {/* Divider and platforms */}
                 <Divider className="list-hr" />
                 <Box className="div-list-data-info-container">
                   <Box>Platforms</Box>
@@ -186,7 +164,6 @@ const ListBoxContainer = ({ gameId, id, getData }) => {
             marginBottom: "10px",
           }}
         >
-          {/* Skeleton loading for game information */}
           <Skeleton
             className="game-list-img-poster list-data-skeleton"
             variant="rectangular"

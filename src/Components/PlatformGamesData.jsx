@@ -9,29 +9,49 @@ import { motion } from "framer-motion";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
+// data is coming from parent components
 const PlatformGamesData = () => {
   const { API_URL, HandleDisplayGrid, changeGridWidth, changeWidth } =
     AuthUseContext();
 
   const { id } = useParams();
 
-  const platformTitles = {
-    "18": "Playstation 4 Games",
-    "187": "Playstation 5 Games",
-    "1": "Xbox One Games",
-    "186": "Xbox Series X Games",
-    "7": "Nintendo Switch Games",
-    "4": "PC Games",
-    "3": "IOS Games",
-    "21": "Android Games",
-  };
-
   useEffect(() => {
-    document.title = `Game List - ${platformTitles[id] || "Home"}`;
+    switch (id) {
+      case "18":
+        document.title = "Game List - Playstation 4 Games";
+        break;
+      case "187":
+        document.title = "Game List - Playstation 5 Games";
+        break;
+      case "1":
+        document.title = "Game List - Xbox One Games";
+        break;
+      case "186":
+        document.title = "Game List - Xbox Series X Games";
+        break;
+      case "7":
+        document.title = "Game List - Nintendo Switch Games";
+        break;
+      case "4":
+        document.title = "Game List - PC Games";
+        break;
+      case "3":
+        document.title = "Game List - IOS Games";
+        break;
+      case "21":
+        document.title = "Game List - Android Games";
+        break;
+      default:
+        document.title = "Game List - Home";
+    }
   }, [id]);
 
-  const [fetchGamesData, setFetchGamesData] = useState([]);
+  // storing game data for PlatformGame Component
+  const [fetchGamesData, setfetchGamesData] = useState([]);
+
   const [loadingCircle, setLoadingCircle] = useState(true);
+
   const [openErrorSnackbar, setOpenErrorSnackBar] = useState(false);
 
   const handleCloseSnackbar = () => {
@@ -42,24 +62,25 @@ const PlatformGamesData = () => {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
 
-  const fetchPlatformGameData = () => {
+  function fetchPlatformGameData() {
     axios
       .get(
         `${API_URL}&platforms=${id}&dates=2022-01-01,2022-12-30&page_size=100`
       )
       .then((res) => {
-        setFetchGamesData(res.data.results);
+        // setfetchGamesData((gameData) => [...gameData, ...res.data.results]);
+        setfetchGamesData(res.data.results);
         setLoadingCircle(false);
       })
       .catch((err) => {
-        console.error(err);
+        console.log(err);
         setOpenErrorSnackBar(true);
         setLoadingCircle(false);
       });
-  };
+  }
 
   useEffect(() => {
-    setFetchGamesData([]);
+    setfetchGamesData([]);
     fetchPlatformGameData();
     // eslint-disable-next-line
   }, [id]);
@@ -76,7 +97,7 @@ const PlatformGamesData = () => {
           severity="error"
           sx={{ width: "100%" }}
         >
-          An error occurred. Please check your internet connection and refresh the page.
+          An error ocurred please chack your internet and refresh the page.
         </Alert>
       </Snackbar>
       <motion.div

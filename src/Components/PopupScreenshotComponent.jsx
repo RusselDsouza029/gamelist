@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AuthUseContext } from "./context/AuthContext";
-import { Box } from "@mui/material";
+import {
+  Box,
+} from "@mui/material";
+import { useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import "./styles/PopupScreenshotComponent.css";
 import axios from "axios";
+import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import "./styles/PlatformGamesData.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { wrap } from "popmotion";
 
+// data is coming from parent components
 const PopupScreenshotComponent = ({ ImageIconComponent, id }) => {
   const { apiKey } = AuthUseContext();
 
@@ -30,54 +35,62 @@ const PopupScreenshotComponent = ({ ImageIconComponent, id }) => {
   const screenshotPopupAnimation = {
     enter: {
       opacity: 1,
-      transition: { duration: 0.5 },
+      transition: {
+        duration: 0.5,
+      },
       visibility: "visible",
     },
     exit: {
       opacity: 0,
-      transition: { duration: 0.5 },
-      transitionEnd: { visibility: "hidden" },
+      transition: {
+        duration: 0.5,
+        // delay: 0.3,
+      },
+      transitionEnd: {
+        visibility: "hidden",
+      },
     },
   };
 
   useEffect(() => {
     document.addEventListener("keydown", handleKeydown);
-    return () => {
-      document.removeEventListener("keydown", handleKeydown);
-    };
-  }, []);
-
-  const handleKeydown = (event) => {
-    if (event.keyCode === 27) {
-      hideScreenshotImagePopup();
+    function handleKeydown(event) {
+      if (event.keyCode === 27) {
+        hideScreenshotImagePopup();
+      }
     }
-  };
+  }, []);
 
   const [imageSrc, setImageSrc] = useState([]);
 
-  useEffect(() => {
-    const getScreenshots = async () => {
-      try {
-        const res = await axios.get(
-          `https://api.rawg.io/api/games/${id}/screenshots?key=${apiKey}`
-        );
+  const getScreenshots = () => {
+    axios
+      .get(`https://api.rawg.io/api/games/${id}/screenshots?key=${apiKey}`)
+      .then((res) => {
         setImageSrc(res.data.results.map((data) => data.image));
-      } catch (err) {
+      })
+      .catch((err) => {
         console.log(err.message);
-      }
-    };
-    getScreenshots();
-  }, [id, apiKey]);
-
-  const variants = {
-    enter: (direction) => ({ x: direction > 0 ? 1000 : -1000, opacity: 0 }),
-    center: { zIndex: 1, x: 0, opacity: 1 },
-    exit: (direction) => ({ zIndex: 0, x: direction < 0 ? 1000 : -1000, opacity: 0 }),
+      });
   };
 
-  const swipeConfidenceThreshold = 10000;
+  useEffect(() => {
+    getScreenshots();
+  });
 
-  const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
+  const variants = {
+    enter: (direction) => {
+      return { x: direction > 0 ? 1000 : -1000, opacity: 0 };
+    },
+    center: { zIndex: 1, x: 0, opacity: 1 },
+    exit: (direction) => {
+      return { zIndex: 0, x: direction < 0 ? 1000 : -1000, opacity: 0 };
+    },
+  };
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset, velocity) => {
+    return Math.abs(offset) * velocity;
+  };
 
   const [[page, direction], setPage] = useState([0, 0]);
 
@@ -94,7 +107,7 @@ const PopupScreenshotComponent = ({ ImageIconComponent, id }) => {
       <Box onClick={showScreenshotImagePopup} className="div-screenshot-icon">
         <ImageIconComponent />
       </Box>
-      {showScreenshotsOverPoster && (
+      {showScreenshotsOverPoster ? (
         <motion.div
           className="div-motion-screenshot-popup"
           style={{ zIndex: 100 }}
@@ -106,9 +119,17 @@ const PopupScreenshotComponent = ({ ImageIconComponent, id }) => {
             <Box className="div-close-icon" onClick={hideScreenshotImagePopup}>
               <CloseIcon />
             </Box>
-            <Box className="div-pop-close" onClick={hideScreenshotImagePopup}></Box>
+            <Box
+              className="div-pop-close"
+              onClick={hideScreenshotImagePopup}
+            ></Box>
             <Box className="div-pop-content">
-              <AnimatePresence exitBeforeEnter custom={direction}>
+              {/* <ScreenshotOverImagePoster data={id} /> */}
+              <AnimatePresence
+                exitBeforeEnter={true}
+                initial={false}
+                custom={direction}
+              >
                 <motion.img
                   onMouseDown={() => setChangeMouseCursor("grabbing")}
                   onMouseUp={() => setChangeMouseCursor("grab")}
@@ -130,6 +151,7 @@ const PopupScreenshotComponent = ({ ImageIconComponent, id }) => {
                   dragElastic={1}
                   onDragEnd={(e, { offset, velocity }) => {
                     const swipe = swipePower(offset.x, velocity.x);
+
                     if (swipe < -swipeConfidenceThreshold) {
                       paginate(1);
                     } else if (swipe > swipeConfidenceThreshold) {
@@ -138,16 +160,20 @@ const PopupScreenshotComponent = ({ ImageIconComponent, id }) => {
                   }}
                 />
               </AnimatePresence>
-              <div className="next-img-slider-btn" onClick={() => paginate(1)}>
-                <ArrowRightIcon />
+              <div className="next-img-slider-btn">
+                <div onClick={() => paginate(1)}>
+                  <ArrowRightIcon />
+                </div>
               </div>
               <div className="prev-img-slider-btn" onClick={() => paginate(-1)}>
-                <ArrowLeftIcon style={{ fontSide: "30px" }} />
+                <div>
+                  <ArrowLeftIcon style={{ fontSide: "30px" }} />
+                </div>
               </div>
             </Box>
           </Box>
         </motion.div>
-      )}
+      ) : null}
     </>
   );
 };
