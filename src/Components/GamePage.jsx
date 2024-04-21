@@ -835,7 +835,7 @@ const GamePage = () => {
                       <React.Fragment>
                         <Box className="box-no-similer-game-found">
                           <Typography component="p">
-                            No Similer Game Series Found
+                            No Similar Game Series Found
                           </Typography>
                         </Box>
                       </React.Fragment>
