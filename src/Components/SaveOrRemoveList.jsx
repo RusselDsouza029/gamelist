@@ -36,6 +36,8 @@ const SaveOrRemoveList = ({ gameId }) => {
     await addDoc(gameUserIdCollection, { gameId: strGameId });
   };
 
+  const [checkIdAvailableOrNot, setCheckIdAvailableOrNot] = useState(false);
+
   // Function to check if the game ID is available in Firebase
   const checkGameAvailableId = () => {
     onSnapshot(q, (snapshot) => {
