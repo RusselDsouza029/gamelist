@@ -92,7 +92,7 @@ const Profile = ({ open, close, fullScreen }) => {
                     className="logout-btn"
                   >
                     <LogoutIcon />
-                    Logout
+                    Signout
                   </Button>
                 </Box>
               </Box>

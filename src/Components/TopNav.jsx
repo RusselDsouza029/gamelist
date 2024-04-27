@@ -746,7 +746,7 @@ const TopNav = () => {
                 //   hide: { opacity: 0, x: -100 },
                 // }}
                 >
-                  Logout
+                  Signout
                 </motion.div>
               </div>
             ) : (
